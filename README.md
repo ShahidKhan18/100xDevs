@@ -6,4 +6,6 @@ Welcome to my MERN-STACK Journey!
 
 - [Week 2 (Express)](Week2/README.md)
 
+- [Week 3 (Middlewares / Zod / Authentications)](Week3/README.md)
+
 
