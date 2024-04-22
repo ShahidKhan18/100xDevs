@@ -1,10 +1,12 @@
 {
   "scripts": {
     "start": "nodemon KideneyMiddleWare.js",
-    "start-input": "nodemon InputValidation.js"
+    "start-input": "nodemon InputValidation.js",
+    "start-auth": "nodemon Authentication.js"
   },
   "dependencies": {
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0",
     "zod": "^3.22.4"
   }
