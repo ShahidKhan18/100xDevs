@@ -2,6 +2,11 @@
 
 Welcome to my MERN-STACK Journey! 
 
+## Assignments
+
+- [Assignments](https://github.com/VampsDamon/assignmentsCOHORT2)
+
+
 ## Navigation
 
 - [Week 2 (Express)](Week2/README.md)
