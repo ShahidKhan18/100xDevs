@@ -14,3 +14,7 @@
 ### 3. Zod (Input Validation)
  [Zod](https://zod.dev/?id=basic-usage).
 
+### 4. Authentication
+ [JWT](https://codedamn.com/news/nodejs/use-json-web-token-jwt-in-nodejs)
+
+

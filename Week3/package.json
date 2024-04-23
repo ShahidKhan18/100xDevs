@@ -2,7 +2,8 @@
   "scripts": {
     "start": "nodemon KideneyMiddleWare.js",
     "start-input": "nodemon InputValidation.js",
-    "start-auth": "nodemon Authentication.js"
+    "start-auth": "nodemon Authentication.js",
+    "start-DB": "nodemon MngoDBCRUD.js"
   },
   "dependencies": {
     "express": "^4.19.2",

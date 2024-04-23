@@ -13,7 +13,7 @@ const schema=zod.array(zod.number());
 !   country:US or IN
 !}
  +Zod Schema for Input Validation
- - const schema= zod.objext({
+ - const schema= zod.object({
  - email:zod.string(),
  - password:zod.string(),
  - country:zod.literal("IN").or(zod.literal("US")

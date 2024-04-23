@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animals Data</title>
+  </head>
+  <body>
+    <script>
+        const getAnimalData = () => {
+          console.log("Fetch Call");
+          fetch("https://fakerapi.it/api/v1/persons").then((response) => {
+            response.json().then((data) => {
+              const list = document.getElementById("list");
+              data.data.forEach((d) => {
+               const li=document.createElement("li");
+               li.textContent=d.firstname;
+               list.appendChild(li);
+              });
+
+            });
+          });
+        };
+
+<!-- 
++ Async await
+
+ const getAnimalData=async ()=>{
+          const response=await fetch("https://fakerapi.it/api/v1/persons");
+          const data=await response.json();
+          const list = document.getElementById("list");
+           data.data.forEach((d) => {
+               const li=document.createElement("li");
+               li.textContent=d.firstname;
+               list.appendChild(li);
+              });
+      } -->
+
+
+     
+    </script>
+    <button onclick="getAnimalData  ()">Get Animal Data</button>
+    <h1>List of Names</h1>
+    <ul id="list"></ul>
+  </body>
+</html>
