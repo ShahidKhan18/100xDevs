@@ -42,6 +42,12 @@ app.post("/signin", function (req, res) {
     });
   }
 
+  
+  /*
+   + jwt.sign({},password) (Create JWTs)
+      - {} --> Object to Parse Into JWT String
+      - password --> Key or Password
+  */
   var token = jwt.sign({ username: username }, jwtPassword);
 
   return res.json({
