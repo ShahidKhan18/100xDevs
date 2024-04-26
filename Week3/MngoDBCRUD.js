@@ -22,8 +22,6 @@ const schema = new mongoose.Schema({
 //+ Collection Created with Schema (Table)
 const User = mongoose.model("User", schema);
 
-const db = mongoose.connection;
-
 // ----------------------------------------------------------------//
 
 // -> Express Routes for MongoDB
@@ -82,10 +80,10 @@ app.put("/user/:name",async(req,res)=>{
    const name=req.params['name'];
    const updatedName=req.body.updatedName;
    try{
-     await User.findByIdAndUpdate(name,{name:updatedName})
+     await User.findOneAndUpdate({name:name},{name:updatedName})
      res.send("Name updated")
    }catch(err){
-      res.status(404).send("Error in getting to user of name ")
+      res.status(404).send("Error in getting to Update name ")
    }
 })
 
