@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sum</title>
+  </head>
+  <script>
+    const sum = async () => {
+      const num1 = document.getElementById("num1").value;
+      const num2 = document.getElementById("num2").value;
+      const output = document.getElementById("output");
+
+      const data = await fetch(
+        `https://sum-server.100xdevs.com/sum?a=${num2}&b=${+num1}`
+      );
+
+      const ans = await data.text();
+      output.innerHTML = ans;
+    };
+    let timeout;
+
+    const deBouncedSum = () => {
+      <!-- It is used to Debounceing Techniques , It prevent frontend for multiple API requests -->
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        sum();
+      }, 1000);
+    };
+
+    const btn = document.getElementById("btn");
+    console.log(num1.value, num2.value);
+    btn.addEventListener("click", sum(num1, num2));
+  </script>
+  <body>
+    <div>
+      <input oninput="deBouncedSum()" id="num1" type="text" />
+      <input oninput="deBouncedSum()" id="num2" type="text" />
+      <button id="btn" onclick="sum()">Sum</button>
+      <div id="output"></div>
+    </div>
+  </body>
+</html>
