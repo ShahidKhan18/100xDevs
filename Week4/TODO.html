@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       var globalId=1;
+
+       const markAsDone=(globalId)=>{
+         const parent=document.getElementById(globalId);
+         parent.children[2].textContent="Done"
+       }
+
+        const createTodo=(title, description, globalId)=>{
+            const parentDiv=document.createElement("div");
+            parentDiv.id=globalId;
+
+            const titleDiv=document.createElement("div");
+            titleDiv.textContent=title;
+
+            const descriptionDiv=document.createElement("div");
+            descriptionDiv.textContent=description;
+
+            const btn=document.createElement("button");
+            btn.textContent="Mark as Done";
+
+            btn.setAttribute("onclick",`markAsDone(${globalId})`);
+
+            parentDiv.appendChild(titleDiv);
+            parentDiv.appendChild(descriptionDiv);
+            parentDiv.appendChild(btn);
+
+            return parentDiv;
+
+        }
+        const addTodo=()=>{
+
+            const title=document.getElementById("title").value;
+            const description=document.getElementById("description").value;
+            const container=document.getElementById("container");
+           
+           const todo=createTodo(title, description, globalId++);
+
+           container.appendChild(todo);
+        }
+
+
+    </script>
+</head>
+<body>
+    <input type="text" id="title" placeholder="title">
+    <br>
+    <input type="text" id="description" placeholder="Description">
+    <br>
+    <button onclick="addTodo()">ADD TODO</button>
+    <div id="container">
+    </div>
+</body>
+</html>
