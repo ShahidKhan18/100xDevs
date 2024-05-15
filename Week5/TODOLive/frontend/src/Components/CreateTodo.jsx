@@ -1,15 +1,36 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 const CreateTodo = () => {
+    const title=useRef();
+    const description=useRef();
+    const addTodoHandler=async()=>{
+       const response = await fetch(
+         "https://todo-server-ayo7.onrender.com/todo",
+         {
+           method: "POST",
+           body: JSON.stringify({
+             title: title.current.value,
+             description: description.current.value,
+           }),
+           headers: {
+             "Content-type": "application/json",
+           },
+         }
+       );
+         const json=response.json();
+         title.current.value="";
+         description.current.value="";
+         alert("Todo Added successfully")
+    }
   return (
     <div>
-      <input type="text" placeholder="title" />
+      <input type="text" placeholder="title" ref={title} />
       <br />
       <br />
-      <input type="text" placeholder="description" />
+      <input type="text" placeholder="description" ref={description} />
       <br />
       <br />
-      <button>Add a todo</button>
+      <button onClick={addTodoHandler}>Add a todo</button>
     </div>
   );
 }
