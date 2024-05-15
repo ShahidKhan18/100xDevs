@@ -4,14 +4,14 @@ const zod=require('zod');
 const app =express();
 const {todo}=require('./db')
 app.use(express.json());
-app.get('/todos',(req,res)=>{
+app.get('/todos',async(req,res)=>{
    
-      
-       
+    const todos= await todo.find({})
+    res.json({todos});
  
 })
 
-app.post('/todo',(req,res)=>{
+app.post('/todo',async(req,res)=>{
   const createPayload = req.body;
   const parsePayload = crateTodo.safeParse(createPayload);
 
@@ -24,14 +24,19 @@ app.post('/todo',(req,res)=>{
 
   //Put into a MongoDB
 
-  todo.create({
+  await todo.create({
     title:createPayload.title,
-    description:createPayload.description
+    description:createPayload.description,
+    completed:false,
+  })
+
+  res.json({
+    msg:"TODO Created"
   })
 })
 
 
-app.put("/completed",(req,res)=>{
+app.put("/completed",async(req,res)=>{
     const updatePayload=req.body;
     const parsePayload=updateTodo.safeParse(updatePayload);
 
@@ -41,6 +46,10 @@ app.put("/completed",(req,res)=>{
         })
         return ;
     }
+
+    await todo.updateOne({_id:updatePayload.id},{completed:true})
+
+    res.json({msg:"Todo marked as completed"})
 })
 
 
