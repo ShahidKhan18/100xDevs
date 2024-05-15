@@ -1,13 +1,14 @@
 const express =require('express');
 const {crateTodo,updateTodo}=require('./type')
-const zod=require('zod');
+const cors=require('cors');
 const app =express();
 const {todo}=require('./db')
 app.use(express.json());
+app.use(cors("https://todo-server-ayo7.onrender.com"));
 app.get('/todos',async(req,res)=>{
    
     const todos= await todo.find({})
-    res.json({todos});
+    res.json(todos);
  
 })
 
