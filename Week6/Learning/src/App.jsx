@@ -4,6 +4,8 @@ import "./App.css";
 import TODO from "./Componets/TODO";
 import CardWrapper from "./Componets/WrapperCopm/CardWrapper";
 import TextComponent from "./Componets/WrapperCopm/TextComponent";
+import TODOID from "./Componets/TODOID";
+import SUM from "./Componets/SUM";
 
 function App() {
   const [randomNumber, setRandomNumber] = useState(0.999);
@@ -25,7 +27,7 @@ function App() {
         <Header title={"2nd Header "} />
         <Header title={randomNumber} />
       </div> */}
-      <TODO />
+      {/* <TODO /> */}
 
 
 
@@ -44,6 +46,10 @@ function App() {
     </CardWrapper> */}
 
 
+     {/* ****************** Week 6.2 ************** */}
+      
+      {/* <TODOID/> */}
+      <SUM/>
     </div>
   );
 }

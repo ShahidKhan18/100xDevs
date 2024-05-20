@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 
 const TODO = () => {
-  const [todo, setTodo] = useState(null);
+  // const [todo, setTodo] = useState(null);
   // const [title, setTitle] = useState("");
   // const [desc, setDesc] = useState("");
   // const addTodo = () => {
@@ -11,18 +11,18 @@ const TODO = () => {
   //   setTitle("");
   //   setDesc("");
   // };
-  const fetchTODO=async()=>{
-     const response=await fetch('https://sum-server.100xdevs.com/todos');
-     const json= await response.json();
-     setTodo(json?.todos)
+  // const fetchTODO=async()=>{
+  //    const response=await fetch('https://sum-server.100xdevs.com/todos');
+  //    const json= await response.json();
+  //    setTodo(json?.todos)
 
-    //  console.log(json)
-  }
-  useEffect(()=>{
-      const interval=setInterval(()=>{
-        fetchTODO();
-      },10000)
-  },[])
+  //   //  console.log(json)
+  // }
+  // useEffect(()=>{
+  //     const interval=setInterval(()=>{
+  //       fetchTODO();
+  //     },10000)
+  // },[])
   
   return todo && (
     <div>
@@ -39,7 +39,7 @@ const TODO = () => {
         onChange={(e) => setDesc(e.target.value)}
       />
       <button onClick={addTodo}>Add TODO</button> */}
-      <div className="allTodos">
+      {/* <div className="allTodos">
         {todo?.map((t) => {
           return (
             <div key={t?.id}>
@@ -48,7 +48,10 @@ const TODO = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
+
+
+      
     </div>
   );
 };
