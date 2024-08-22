@@ -69,7 +69,7 @@ app.delete('/',(req,res)=>{
     users[0].kidneys = healtyKidneys;
     res.json({success:"Data deleted successfully"})
   }else{
-    res.status(404).json({ failed: "No Unhealthy Kidneys" });
+    res.status(404 ).json({ failed: "No Unhealthy Kidneys" });
   }
 
 })
