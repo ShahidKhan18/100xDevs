@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="p" placeholder="principle"><br><br>
+    <input type="text" id="r" placeholder="rate"><br><br>
+    <input type="text" id="t" placeholder="time"><br><br>
+    <button>Calculate Interest</button>
+    <br><br>
+    <div id="interest"></div>
+    <script>
+       const populateSI=async ()=>{
+         const interest=document.getElementById("interest");
+        const p=document.getElementById("p").value;
+        const r=document.getElementById("r").value;
+        const t=document.getElementById("t").value;
+        
+        const data=await fetch(`http://localhost:3000/simpleInterest/${p}/${r}/${t}`);
+        const SI=await data.json(); 
+        console.log(SI)
+        interest.innerHTML=`Total Interest: ${SI.interest} <br>Total amount : ${SI.totalAmount
+}`;
+       }
+
+        
+        document.querySelector("button").addEventListener("click",populateSI)
+    </script>
+</body>
+</html>

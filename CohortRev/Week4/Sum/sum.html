@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sum</title>
+  </head>
+  <body>
+    <div class="sum">
+      <input
+        type="text"
+        id="num1"
+        value=""
+        placeholder="Number 1"
+        oninput="deboucsedPopulateSum()"
+      /><br /><br />
+      <input
+        type="text"
+        id="num2"
+        value=""
+        placeholder="Number 2"
+        oninput="deboucsedPopulateSum()"
+      /><br /><br />
+      <p></p>
+    </div>
+<a href="simpleInterest.html">Simple Interest</a>
+    <script>
+      let timeout;
+      const deboucsedPopulateSum=()=>{
+         clearTimeout(timeout);
+         timeout=setTimeout(populateSum,100)
+      }
+      const populateSum = async () => {
+        const num1 = document.getElementById("num1").value;
+        const num2 = document.getElementById("num2").value;
+        const data = await fetch(
+          `http://localhost:3000/sum?a=${num1}&b=${num2}`
+        );
+        const sumData = await data.json();
+        const dataP = document.querySelector("p");
+        dataP.innerHTML = sumData.sum;
+      };
+      
+    </script>
+  </body>
+</html>
