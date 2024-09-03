@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO Application</title>
+</head>
+<body>
+    <div class="todo">
+        <input type="text" placeholder="Title" id="title"><br><br>
+        <input type="text" placeholder="Description" id="desc"><br><br>
+        <button id="add" onclick="addTodo()">ADD TODO</button><br><br>
+        <div id="TODOS" style="border: 2px solid black;padding: 10px;">
+            <h1><center>TODOS</center></h1>
+        </div>
+    </div>
+    <script>
+        let globalID=0;
+        const createChild=(title,desc,id)=>{
+           const parent=document.createElement("div");
+           parent.setAttribute("id",id);
+
+           const child1=document.createElement("h2")
+           child1.innerHTML=title
+
+           const child2=document.createElement("p")
+           child2.innerHTML=desc
+
+          const child3=document.createElement("button")
+           child3.innerHTML="Mark as Done"
+           child3.setAttribute("onclick",`markDone(${id})`)
+         parent.appendChild(child1);
+         parent.appendChild(child2);
+         parent.appendChild(child3);
+
+         return parent;
+        }
+        const addTodo=()=>{
+           const title=document.getElementById("title").value; 
+           const desc=document.getElementById("desc").value;
+           
+           const TODOs=document.getElementById("TODOS")
+           TODOs.appendChild(createChild(title,desc,++globalID))
+        }
+
+        const markDone=(id)=>{
+           const allTodos=document.getElementById("TODOS").children;
+           allTodos[id].children[2].innerHTML="Done"
+        }
+    </script>
+</body>
+</html>
