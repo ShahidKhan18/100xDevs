@@ -1,45 +1,32 @@
-import { useState } from 'react'
+import { useState,memo } from 'react'
 
 import './App.css'
 
 function App() {
-  
+  const [name, setName] = useState(1234);
 
   return (
     <div>
-     <HeaderWithButton/>
+      <button onClick={()=>{
+        setName(Math.random().toFixed(5)*10000)
+      }}>Update name</button>
+     <Header title={name}/>
+     <Header title={"Shahid"}/>
+     <Header title={"Shahid"}/>
+     <Header title={"Shahid"}/>
+     <Header title={"Shahid"}/>
      <Header title={"Shahid"}/>
     </div>
   )
 }
 
-const HeaderWithButton=()=>{
-  const [name, setName] = useState(1234);
-  return (
-    <div style={{
-      border: "4px solid red",
-      padding: "20px"
-    }}>
-      <button
-        onClick={() => {
-          setName(Math.random().toFixed(5) * 100000);
-        }}
-      >
-        Update name
-      </button>
-      <Header title={name}/>
-    </div>
-  )
-    
-}
-
-const Header=({title})=>{
+const Header= memo( ({title})=>{
   return(
-    <div style={{padding:"10px", margin:"10px"}}>
+    <div>
       My name is {title}
     </div>
   )
-}
+})
 
 
 export default App
