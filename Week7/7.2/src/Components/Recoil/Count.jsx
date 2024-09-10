@@ -1,15 +1,15 @@
 import React from "react";
 import CountRender from "./CountRender";
 import Buttons from "./Buttons";
-import CountProvider from "./countContext";
+import { RecoilRoot } from "recoil";
 
 const Count = () => {
   return (
     <div>
-   
+      
         <CountRender />
         <Buttons />
-    
+      
     </div>
   );
 };
