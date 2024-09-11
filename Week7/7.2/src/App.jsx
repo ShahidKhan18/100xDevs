@@ -8,8 +8,8 @@ function App() {
 
   return (
    <>
-   <ContextAPI/>
-   {/* <Redux/> */}
+   {/* <ContextAPI/> */}
+   <Redux/>
    {/* <Recoil/> */}
    </>
   )
