@@ -2,9 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
+const cors=require("cors");
 
 
 //+ how to use body parcer to acess body in post request
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -33,3 +35,12 @@ app.get("/get-file", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+app.get('/notifications',(req,res)=>{
+   return res.json({
+     network:Math.floor( Math.random()*20),
+     jobs:Math.floor( Math.random()*20),
+     messaging:Math.floor( Math.random()*20),
+     notifications:Math.floor( Math.random()*20),
+   })
+})

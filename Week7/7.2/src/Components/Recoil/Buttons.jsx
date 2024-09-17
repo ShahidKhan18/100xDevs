@@ -1,15 +1,17 @@
-import React from 'react'
-import { useRecoilState } from 'recoil'
-import { countAtom } from './Store/Atom/countAtom'
+import React from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { countAtom } from "./Store/Atom/countAtom";
 
 const Buttons = () => {
-    const [count,setCount]=useRecoilState(countAtom)
+ 
+  const setCount = useSetRecoilState(countAtom);
+  const count = useRecoilValue(countAtom);
   return (
     <div>
-        <button onClick={()=>setCount(count-1)}>-</button>
-        <button onClick={()=>setCount(count+1)}>+</button>
+      <button onClick={() => setCount((count) => count - 1)}>-</button>
+      <button onClick={() => setCount((count) => count + 1)}>+</button>
     </div>
-  )
-}
+  );
+};
 
-export default Buttons
+export default Buttons;

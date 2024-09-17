@@ -1,10 +1,17 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { countAtom } from "./Store/Atom/countAtom";
+import { countAtom, countSelector } from "./Store/Atom/countAtom";
+import EvenRender from "./EvenRender";
 
 const CountRender = () => {
- const count=useRecoilValue(countAtom)
-  return <div>Current Count : {count}</div>;
+  const count = useRecoilValue(countAtom);
+  
+  return (
+    <div>
+      <EvenRender />
+      Current Count : {count}
+    </div>
+  );
 };
 
 export default CountRender;
