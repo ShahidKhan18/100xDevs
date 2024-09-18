@@ -1,9 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        "[auto,auto,1fr]": "auto auto 1fr",
+      },
+    },
   },
-  plugins: [],
+  plugins: [import("@tailwindcss/forms"), import("@tailwindcss/aspect-ratio")],
 };
-
