@@ -7,6 +7,19 @@ const userSchema=zod.object({
     password:zod.string().min(6)
 });
 
-module.exports={
-    userSchema
-}
+const signInSchema = zod.object({
+  username: zod.string(),
+  password: zod.string()
+});
+
+const updateBodySchema = zod.object({
+  password: zod.string().optional(),
+  firstName: zod.string().optional(),
+  lastName: zod.string().optional(),
+});
+
+module.exports = {
+  userSchema,
+  signInSchema,
+  updateBodySchema,
+};
