@@ -4,7 +4,7 @@ const {
   signInSchema,
   updateBodySchema,
 } = require("../zodValidation");
-const { User } = require("../DB/db");
+const { User, Account } = require("../DB/db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 
@@ -13,40 +13,49 @@ const userController = {
     return res.send("Hello World");
   },
   signUp: async (req, res) => {
-    const { username, firstName, lastName, password } = req.body;
-    const parseData = userSchema.safeParse({
-      username,
-      firstName,
-      lastName,
-      password,
-    });
-
-    if (!parseData.success)
-      return res.status(411).json({
-        message: "Incorrect inputs",
+    try {
+      const { username, firstName, lastName, password } = req.body;
+      const parseData = userSchema.safeParse({
+        username,
+        firstName,
+        lastName,
+        password,
       });
 
-    const userExist = await User.findOne({ username });
-    if (userExist) {
+      if (!parseData.success) {
+        throw new Error("Incorrect inputs");
+      }
+      const userExist = await User.findOne({ username });
+      if (userExist) {
+        throw new Error("Incorrect inputs");
+      }
+
+      const user = await User.create({
+        username,
+        firstName,
+        lastName,
+        password,
+      });
+
+      const userId = user._id;
+
+      await Account.create({
+        userId,
+        balance: Math.floor(Math.random() * 10000 + 1),
+      });
+
+      const jwtToken = jwt.sign({ userId }, JWT_SECRET);
+
+      return res.json({
+        message: "User created successfully",
+        token: jwtToken,
+      });
+    } catch (error) {
       return res.status(411).json({
-        message: "Email already taken",
+        message: "Error on SignUp",
+        error: error.message,
       });
     }
-
-    const user = await User.create({
-      username,
-      firstName,
-      lastName,
-      password,
-    });
-
-    const userId = user._id;
-    const jwtToken = jwt.sign({ userId }, JWT_SECRET);
-
-    return res.json({
-      message: "User created successfully",
-      token: jwtToken,
-    });
   },
 
   signIn: async (req, res) => {
@@ -96,8 +105,8 @@ const userController = {
         ],
       });
       return res.json({
-        users: users.map(({username,firstName, lastName, _id}) => {
-         return { username,firstName, lastName, _id};
+        users: users.map(({ username, firstName, lastName, _id }) => {
+          return { username, firstName, lastName, _id };
         }),
       });
     } catch (error) {

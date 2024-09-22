@@ -34,13 +34,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const accountSchema=mongoose.Schema({
+const accountSchema=new mongoose.Schema({
   userId:{
    type:mongoose.Schema.Types.ObjectId,
    ref:"User",
    required:true,
   },
-  ballance:{
+  balance:{
     type:Number,
     required:true,
   }
