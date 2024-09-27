@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Input from "./UI/Input"
+import { useNavigate } from 'react-router-dom';
 const SendMoney = () => {
+  const navigate=useNavigate()
+
+   useEffect(() => {
+     if (!localStorage.getItem("token")) navigate("/");
+   }, []);
+
   return (
     <div className="bg-slate-100 w-full h-screen grid justify-center items-center">
       <div className="moneyCard p-4 bg-white rounded-md shadow-md w-[300px] ">

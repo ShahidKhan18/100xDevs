@@ -1,25 +1,82 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Heading from "./UI/Heading";
 import SubHeading from "./UI/SubHeading";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
 import ButtonWarning from "./UI/ButtonWarning";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+   const [username, setUserName] = useState();
+   const [password, setPassword] = useState();
+ const navigate=useNavigate();
+
+ useEffect(()=>{
+   if(localStorage.getItem('token'))
+     navigate("/dashboard");
+ },[])
+
+   const onsubmitHandler = async () => {
+     try {
+       console.log(username,password)
+       const response = await axios.post(
+         "https://paytmbackend-ak0n.onrender.com/api/v1/user/signIn",
+         {
+           username,
+           password,
+         }
+       );
+         localStorage.setItem("token", response?.data?.token);
+         toast.success("You Login Successfully", {
+           theme: "light",
+           autoClose: 1400,
+         });
+         navigate("/dashboard");
+     } catch (error) {
+       console.log(error?.response?.data);
+       toast.error(error?.response?.data?.error, {
+         theme: "light",
+         autoClose: 1400,
+       });
+     }
+   };
+  
+
+ 
+
   return (
     <div className="w-full h-screen bg-gray flex justify-center  items-center ">
       <div className="bg-white p-4 rounded-md shadow-lg max-w-[300px]">
         <Heading title={"Sign In"} />
-        <SubHeading textData={"Enter your credentials to access your account"} />
+        <SubHeading
+          textData={"Enter your credentials to access your account"}
+        />
         <Input
           label={"Email"}
           placeHolder={"shahid@gmail.com"}
           type={"email"}
+          onChange={(e) => setUserName(e.target.value)}
         />
-        <Input label={"Password"} placeHolder={""} type={"password"} />
-        <Button btnText={"Sign In"} to={"/dashboard"} />
+        <Input
+          label={"Password"}
+          placeHolder={""}
+          type={"password"}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button
+          btnText={"Sign In"}
+          to={"/dashboard"}
+          onClick={() => {
+            onsubmitHandler();
+          }}
+        />
         <ButtonWarning
-          to={"/signin"}
+          onClick={() => {
+            navigate("/signUp");
+          }}
           warning={"Don't have an account"}
           toText={"Sign up"}
         />
