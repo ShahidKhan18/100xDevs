@@ -30,7 +30,7 @@ function App() {
             
             }
           />
-          <Route path="/send" element={<SendMoney />} />
+          <Route path="/send/:id/:name" element={<SendMoney />} />
         </Routes>
       </BrowserRouter>
     </div>

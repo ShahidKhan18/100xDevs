@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-const User = ({name}) => {
+const User = ({name,id}) => {
+
   return (
     <div className="user flex justify-between items-center ">
       <div className="profile flex gap-4 items-center font-bold">
@@ -16,11 +18,11 @@ const User = ({name}) => {
             clipRule="evenodd"
           />
         </svg>
-        <div>{name || "User 1"}</div>
+        <div className='uppercase'>{name || "User 1"}</div>
       </div>
-      <button className="bg-slate-800  text-white px-4 rounded-md outline-none border-none py-1 shadow-md  hover:bg-slate-600 ease-in-out delay-75  focus:ring-0 focus:outline-red-800">
+      <Link to={"/send/"+id+"/"+name}  className="bg-slate-800  text-white px-4 rounded-md outline-none border-none py-1 shadow-md  hover:bg-slate-600 ease-in-out delay-75  focus:ring-0 focus:outline-red-800">
         Send Money
-      </button>
+      </Link>
     </div>
   );
 }

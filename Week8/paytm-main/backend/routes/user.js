@@ -11,8 +11,4 @@ router.put("/",authMiddleware,updateUserInfo);
 
 router.get("/bulk", filterUser);
 
-
-
-
-
 module.exports=router;

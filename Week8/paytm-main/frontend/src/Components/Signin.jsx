@@ -36,7 +36,6 @@ const Signin = () => {
          });
          navigate("/dashboard");
      } catch (error) {
-       console.log(error?.response?.data);
        toast.error(error?.response?.data?.error, {
          theme: "light",
          autoClose: 1400,
