@@ -32,6 +32,7 @@ const SendMoney = () => {
          theme: "light",
          autoClose: 1400,
        });
+       
     }
   };
   useEffect(() => {
@@ -43,18 +44,20 @@ const SendMoney = () => {
       <div className="moneyCard p-4 bg-white rounded-md shadow-md w-[300px] ">
         <h1 className="text-center font-bold text-3xl  ">Send Money</h1>
         <div className="rec mt-8 flex items-center gap-4">
-          <div className="pro text-white bg-green-500 w-[40px] h-[40px] rounded-full text-center p-1.5">
-            A
+          <div className="pro text-white font-bold text-2xl bg-green-500 w-[40px] h-[40px] rounded-full text-center p-1">
+            {name[0].toUpperCase()}
           </div>
           <div className="font-bold text-lg uppercase">{name}</div>
         </div>
         <Input
           placeHolder={"Enter Amount"}
+          type={"number"}
           label={"Amount (in ₹)"}
           onChange={(e) => {
             setAmount(e.target.value);
           }}
         />
+  
         <button
           onClick={fundTransfer}
           className="text-white bg-green-500 py-1 mt-4 rounded-lg w-full hover:bg-green-400 ease-in-out delay-75 "
