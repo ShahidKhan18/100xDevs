@@ -8,6 +8,7 @@ import axios from "axios"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import SiginLoader from "./UI/SiginLoader";
 
 
 const Signup = () => {
@@ -15,6 +16,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate=useNavigate();
 
 useEffect(() => {
@@ -23,7 +25,7 @@ useEffect(() => {
   
   
   const onsubmitHandler=async()=>{
-    console.log(firstName,lastName,username,password);
+    setLoading(true)
     try {
        const response = await axios.post(
          "https://paytmbackend-ak0n.onrender.com/api/v1/user/signup",
@@ -35,6 +37,7 @@ useEffect(() => {
          }
        );
        localStorage.setItem("token", response.data.token);
+       setLoading(false);
        toast.success(firstName+" , your account created", {
          theme: "light",
          autoClose: 1400,
@@ -78,6 +81,12 @@ useEffect(() => {
           navigate("/")
         }} />
       </div>
+     {
+      
+       loading &&
+      <SiginLoader msg={"Signing in ..."}/>
+      
+     }
     </div>
   );
 };

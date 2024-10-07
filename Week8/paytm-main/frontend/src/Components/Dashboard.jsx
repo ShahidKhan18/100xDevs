@@ -5,6 +5,8 @@ import Balance from './UI/Balance'
 import Users from './UI/Users'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import SiginLoader from './UI/SiginLoader'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -12,7 +14,12 @@ const Dashboard = () => {
   const [users, setUsers] = useState(null);
   const [balance, setBalance] = useState(null)
   const tokenRemover=()=>{
+     
       localStorage.removeItem("token");
+      toast.success("Signing Out..", {
+        theme: "light",
+        autoClose: 1400,
+      });
       setIsLogin(false);
   }
 
@@ -66,7 +73,7 @@ const Dashboard = () => {
   
   if(!users){
     return (
-      <div>Loading...</div>
+     <SiginLoader msg={"Dashboard Loading ..."}/>
     )
   }
 
