@@ -18,7 +18,7 @@ export const createUser = async (user: User): Promise<User> => {
     user.email,
     user.password,
   ]);
-  return result[0];
+  return result;
 };
 
 export const getUserById = async (userId: number): Promise<User | null> => {

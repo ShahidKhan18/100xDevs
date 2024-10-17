@@ -11,8 +11,10 @@ try {
     })
 
     console.log("New user Create : ",newUser)
-} catch (error) {
-    console.error('Error : ',error)
+} catch (error:any) {
+    const { message, detail } = error;
+    console.error("Error : ", message);
+    console.error("Details : ", detail);
 } finally {
   await closePool();
 }

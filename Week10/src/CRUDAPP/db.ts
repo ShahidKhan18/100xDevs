@@ -13,8 +13,8 @@ export const query=async(queryText:string,prams:any[]=[]):Promise<any> =>{
     try {
         const res=await pool.query(queryText,prams);
         return res.rows;
-    } catch (error) {
-        console.error("DB query Error",error)
+    } catch (error:any) {
+        
         throw error;
     }
 }
