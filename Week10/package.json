@@ -1,0 +1,21 @@
+{
+  "name": "week10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"tsc -b",
+    "start-app":"node ./dist/index.js",
+    "start":"npm run build && npm run start-app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pg": "^8.11.10",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.0"
+  }
+}
