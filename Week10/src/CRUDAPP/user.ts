@@ -8,6 +8,8 @@ interface User {
   created_at?: Date;
 }
 
+type SafeUser=Omit<User,"password">;
+
 export const createUser = async (user: User): Promise<User> => {
   const queryText = `
   INSERT INTO users (username,email,password) VALUES
@@ -21,13 +23,30 @@ export const createUser = async (user: User): Promise<User> => {
   return result;
 };
 
-export const getUserById = async (userId: number): Promise<User | null> => {
+export const getUserById = async (userId: number): Promise<SafeUser | null> => {
   const queryText = `
     SELECT * FROM users WHERE 
     id=$1;
     `;
   const result = await query(queryText, [userId]);
-  return result.rows.length > 0 ? result.rows[0] : null;
+  const user=  result.length > 0 ? result[0] : null;
+  if(!user) return null;
+
+  const {password,...safeUser}=user;
+  return safeUser;
+};
+export const getAllUsers = async (): Promise<SafeUser[] | null> => {
+  const queryText = `
+    SELECT * FROM users ;
+    `;
+  const result = await query(queryText);
+  const user=  result.length > 0 ? result : null;
+  if(!user) return null;
+
+  return user?.map((u:User)=>{
+    const {password,...safeUser}=u;
+    return safeUser;
+  })
 };
 
 export const updateUser = async (userId: number, user: User): Promise<User> => {
