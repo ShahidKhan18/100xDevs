@@ -18,12 +18,13 @@ function insertUser(username, password, firstName, lastName) {
                 email: username,
                 password,
                 firstname: firstName,
-                lastname: lastName
+                lastname: lastName,
             },
             select: {
                 id: true,
-                email: true, password: true
-            }
+                email: true,
+                password: true,
+            },
         });
         console.log(res);
     });
@@ -33,16 +34,51 @@ const updateUser = (email_1, _a) => __awaiter(void 0, [email_1, _a], void 0, fun
         where: { email },
         data: {
             firstname,
-            lastname
-        }
+            lastname,
+        },
     });
     console.log(res);
 });
 // updateUser("sid@gmail.com",{firstname:"shahid",lastname:"Khan"})
 const getUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield prisma.user.findUnique({
-        where: { email }
+        where: { email },
     });
     console.log(res);
 });
-getUser("sid@gmail.com");
+const createTodo = (_a) => __awaiter(void 0, [_a], void 0, function* ({ title, description, userId }) {
+    const res = yield prisma.todos.create({
+        data: {
+            title,
+            description,
+            userId,
+        },
+    });
+    console.log(res);
+});
+// createTodo({
+//   title: "go to gym",
+//   description: "go to gym and do 10 pushups",
+//   userId: 1,
+// });
+const getTodos = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield prisma.todos.findMany({
+        where: { userId }
+    });
+    console.log(res);
+});
+// getTodos(1);
+const getTodosAndUserDetails = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield prisma.todos.findMany({
+        where: { userId },
+        select: {
+            id: true,
+            title: true,
+            description: true,
+            done: true,
+            user: true
+        }
+    });
+    console.log(res);
+});
+getTodosAndUserDetails(1);
