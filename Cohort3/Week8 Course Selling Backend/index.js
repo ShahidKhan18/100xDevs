@@ -9,9 +9,17 @@ const app=express();
 
 
 
-app.use(require("cors"))
+app.use(require("cors")())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+app.use("/api",require("./src/routes"));
+
+app.get("/",(req,res)=>{
+    return res.json({
+        message:"API Working Properly"
+    })
+})
 
 
 //+ Global Middlewares
