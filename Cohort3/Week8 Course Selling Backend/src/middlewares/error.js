@@ -22,7 +22,7 @@ const errorMiddleware = (err, req, res, next) => {
 
         delete ErrorResponse.error
     }
-    // console.error("Error:", err);
+    console.error("Error:", err);
 
     
     res.status(ErrorResponse.statusCode).json(ErrorResponse);
