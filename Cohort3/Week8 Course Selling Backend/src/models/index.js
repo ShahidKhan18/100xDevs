@@ -1,6 +1,5 @@
-module.exports={
-    User:require('./user.model'),
-    Admin:require('./admin.model'),
-    Course:require('./course.model'),
-    Purchased:require('./purchased.model')
-}
+module.exports = {
+  User: require("./user.model"),
+  Course: require("./course.model"),
+  Purchased: require("./purchasd.model"),
+};
