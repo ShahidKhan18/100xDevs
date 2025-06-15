@@ -3,7 +3,7 @@ const ENVConfig = {
   PORT: process.env.PORT,
   NODE_ENV:process.env.NODE_ENV,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
-  JWT_REFRESH_SECRET: process.JWT_REFRESH_SECRET
+  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET
 };
 
 

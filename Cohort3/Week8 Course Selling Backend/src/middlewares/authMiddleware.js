@@ -1,0 +1,25 @@
+
+const { ENVConfig } = require("../config");
+const { User } = require("../models");
+const { AppError } = require("../utils");
+const catchAsyncError = require("./catchAsyncError");
+const { StatusCodes } = require("http-status-codes");
+const jwt=require("jsonwebtoken")
+const userAuthenticate =catchAsyncError(async(req,res,next)=>{
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) throw new AppError("Authorization Header Required",StatusCodes.EXPECTATION_FAILED)
+
+    const token=authHeader.split(" ")[1];
+    
+    const {_id}=jwt.verify(token,ENVConfig.JWT_ACCESS_SECRET)
+
+    if(!_id) throw new AppError("Unauthrized User",StatusCodes.UNAUTHORIZED)
+
+    const user=await User.findById(_id)
+
+    req.user=user;
+    next();
+})
+
+module.exports = { userAuthenticate }

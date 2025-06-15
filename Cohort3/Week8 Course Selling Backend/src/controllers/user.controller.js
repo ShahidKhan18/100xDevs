@@ -1,6 +1,6 @@
 const { CatchAsyncError } = require('../middlewares');
 const { UserService } = require('../services');
-const { SuccessResponse } = require('../utils');
+const { SuccessResponse, SendToken } = require('../utils');
 const BaseController = require('./base.controller');
 const { StatusCodes } = require("http-status-codes");
 
@@ -11,10 +11,11 @@ class UserController extends BaseController {
     }
     
     logIn=CatchAsyncError(async(req,res)=>{
-      const data=await this.service.logIn(req.body);
+        const { accessToken,refreshToken }=await this.service.logIn(req.body);
+        
+        SendToken(res,refreshToken);
         SuccessResponse.message = "User logged In Successfully";
-        SuccessResponse.data = data;
-
+        SuccessResponse.data = {accessToken};
         return res.status(StatusCodes.OK).json(SuccessResponse)
     })
     
