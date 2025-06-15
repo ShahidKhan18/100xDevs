@@ -1,3 +1,5 @@
 node_modules
 .env
 launch.json
+dist
+Cohort3/Week14 TypeScript/Learning/dist/index.js
