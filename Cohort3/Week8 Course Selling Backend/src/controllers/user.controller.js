@@ -5,30 +5,39 @@ const BaseController = require('./base.controller');
 const { StatusCodes } = require("http-status-codes");
 
 class UserController extends BaseController {
-    constructor(){
-       
+    constructor() {
+
         super(UserService);
     }
-    
-    logIn=CatchAsyncError(async(req,res)=>{
-        const { accessToken,refreshToken }=await this.service.logIn(req.body);
-        
-        SendToken(res,refreshToken);
+
+    logIn = CatchAsyncError(async (req, res) => {
+        const { accessToken, refreshToken } = await this.service.logIn(req.body);
+
+        SendToken(res, refreshToken);
         SuccessResponse.message = "User logged In Successfully";
-        SuccessResponse.data = {accessToken};
+        SuccessResponse.data = { accessToken };
         return res.status(StatusCodes.OK).json(SuccessResponse)
     })
 
-    logout=CatchAsyncError(async(req,res)=>{
-        const {_id}=req.user;
+    logout = CatchAsyncError(async (req, res) => {
+        const { _id } = req.user;
         await UserService.logout(_id);
-        
-        SuccessResponse.data=null;
-        SuccessResponse.message="Logout Successfull"
+
+        SuccessResponse.data = null;
+        SuccessResponse.message = "Logout Successfull"
         res.status(200).clearCookie("token").json(SuccessResponse);
 
     })
-    
+
+    refresh = CatchAsyncError(async (req, res) => {
+        const token = req.cookies["token"]
+        const { accessToken, refreshToken } = await this.service.refresh(token);
+        SendToken(res, refreshToken);
+        SuccessResponse.message = "New access token assigned";
+        SuccessResponse.data = { accessToken };
+        return res.status(StatusCodes.OK).json(SuccessResponse)
+    })
+
 
 }
 

@@ -3,6 +3,7 @@ const { AppError, SuccessResponse } = require("../utils");
 const BaseService = require("./base.service");
 const { User, Session } = require("../models");
 const { ENVConfig } = require("../config");
+const jwt=require("jsonwebtoken")
 
 class UserService extends BaseService {
     constructor() {
@@ -60,13 +61,29 @@ class UserService extends BaseService {
 
     }
 
-    logout=async function(_id){
-        const updatedData=await Session.findOneAndUpdate({userId:_id},{
-            used:true
-        } ,{ new: true })
+    logout = async function (_id) {
+        await Session.findOneAndDelete({ userId: _id })
+    }
+
+    refresh = async function (token) {
         
+        const { _id } = jwt.verify(token, ENVConfig.JWT_REFRESH_SECRET)
+        if (!_id) throw new AppError("Unauthorized User", StatusCodes.UNAUTHORIZED)
         
-        
+        const sessionData = await Session.findOne({ refreshToken: token })
+        if (!sessionData || sessionData.used) throw new AppError("Unauthorized User (Token Theft)", StatusCodes.UNAUTHORIZED)
+        sessionData.used = true;
+        sessionData.save();
+        const user = await User.findById(_id);
+        const { accessToken,
+            refreshToken } = user.generateJWTTokens()
+
+        await Session.create({
+            userId: user._id,
+            refreshToken,
+            expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
+        })
+        return { accessToken, refreshToken };
     }
 }
 

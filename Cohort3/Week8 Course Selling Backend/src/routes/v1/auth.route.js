@@ -7,6 +7,7 @@ const router = Router()
 
 router.post("/register", ValidateRequest(UserTypes.createUserSchema), UserController.create)
 router.post("/login", ValidateRequest(UserTypes.loginUserSchema), UserController.logIn)
+router.get("/refresh",  UserController.refresh)
 router.get("/logout", AuthMiddleware.userAuthenticate, UserController.logout)
 router.get("/demo", AuthMiddleware.userAuthenticate, (req, res) => {
 
