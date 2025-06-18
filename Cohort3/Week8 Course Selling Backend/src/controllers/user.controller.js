@@ -18,6 +18,16 @@ class UserController extends BaseController {
         SuccessResponse.data = {accessToken};
         return res.status(StatusCodes.OK).json(SuccessResponse)
     })
+
+    logout=CatchAsyncError(async(req,res)=>{
+        const {_id}=req.user;
+        await UserService.logout(_id);
+        
+        SuccessResponse.data=null;
+        SuccessResponse.message="Logout Successfull"
+        res.status(200).clearCookie("token").json(SuccessResponse);
+
+    })
     
 
 }

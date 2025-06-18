@@ -11,10 +11,14 @@ const userAuthenticate =catchAsyncError(async(req,res,next)=>{
     if (!authHeader) throw new AppError("Authorization Header Required",StatusCodes.EXPECTATION_FAILED)
 
     const token=authHeader.split(" ")[1];
+
+    if(!req.cookies["token"]){
+        throw new AppError("Unauthorized User", StatusCodes.UNAUTHORIZED)
+    }
     
     const {_id}=jwt.verify(token,ENVConfig.JWT_ACCESS_SECRET)
 
-    if(!_id) throw new AppError("Unauthrized User",StatusCodes.UNAUTHORIZED)
+    if(!_id) throw new AppError("Unauthorized User",StatusCodes.UNAUTHORIZED)
 
     const user=await User.findById(_id)
 

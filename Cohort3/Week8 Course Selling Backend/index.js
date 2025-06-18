@@ -2,11 +2,15 @@ require("dotenv").config();
 const express=require("express");
 const { ENVConfig, MongoDBConfig } = require("./src/config");
 const { ErrorMiddlewware } = require("./src/middlewares");
+const cookieParser = require("cookie-parser");
+
+const cron=require("node-cron");
+const { Session } = require("./src/models");
 
 
 const app=express();
 
-
+app.use(cookieParser());
 
 
 app.use(require("cors")())
@@ -22,6 +26,11 @@ app.get("/",(req,res)=>{
 })
 
 
+cron.schedule("0 0 * * *",async()=>{
+  await Session.deleteMany({
+    used:true
+  })
+})
 
 
 //+ Global Middlewares

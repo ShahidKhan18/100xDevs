@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { AppError, SuccessResponse } = require("../utils");
 const BaseService = require("./base.service");
-const { User } = require("../models");
+const { User, Session } = require("../models");
 const { ENVConfig } = require("../config");
 
 class UserService extends BaseService {
@@ -46,10 +46,27 @@ class UserService extends BaseService {
 
         const { accessToken,
             refreshToken } = user.generateJWTTokens()
-    
-        
-        return { accessToken ,refreshToken};
 
+
+
+        //Saved session into DB
+
+        await Session.create({
+            userId: user._id,
+            refreshToken,
+            expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
+        })
+        return { accessToken, refreshToken };
+
+    }
+
+    logout=async function(_id){
+        const updatedData=await Session.findOneAndUpdate({userId:_id},{
+            used:true
+        } ,{ new: true })
+        
+        
+        
     }
 }
 
