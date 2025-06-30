@@ -11,10 +11,8 @@ class BaseController {
         StatusCodes.INTERNAL_SERVER_ERROR
       );
     }
-   
     this.service = service;
-
-   
+    
   }
 
   create = CatchAsyncError(async  (req, res) =>{
@@ -31,7 +29,8 @@ class BaseController {
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   });
 
-  getAll = CatchAsyncError(async function (req, res) {
+  getAll = CatchAsyncError(async  (req, res) =>{
+    
     const data = await this.service.getAll(req.query);
     SuccessResponse.data = data;
     SuccessResponse.statusCode = StatusCodes.OK;
@@ -39,7 +38,7 @@ class BaseController {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
 
-  getById = CatchAsyncError(async function (req, res) {
+  getById = CatchAsyncError(async  (req, res) =>{
     const id = req.params.id;
     if (!id) {
       throw new AppError("ID is required", StatusCodes.BAD_REQUEST);
@@ -54,7 +53,7 @@ class BaseController {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
 
-  update = CatchAsyncError(async function (req, res) {
+  update = CatchAsyncError(async  (req, res)=> {
     const id = req.params.id;
     if (!id) {
       throw new AppError("ID is required", StatusCodes.BAD_REQUEST);
@@ -69,7 +68,7 @@ class BaseController {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
 
-  deleteById = CatchAsyncError(async function (req, res) {
+  deleteById = CatchAsyncError(async  (r6eq, res)=> {
     const id = req.params.id;
     if (!id) {
       throw new AppError("ID is required", StatusCodes.BAD_REQUEST);
@@ -84,7 +83,7 @@ class BaseController {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
 
-  getByQuery = CatchAsyncError(async function (req, res) {
+  getByQuery = CatchAsyncError(async  (req, res)=> {
     const query = req.query;
     if (!query) {
       throw new AppError("Query is required", StatusCodes.BAD_REQUEST);
@@ -95,7 +94,7 @@ class BaseController {
     SuccessResponse.message = "Data retrieved successfully";
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
-  getByIdAndPopulate = CatchAsyncError(async function (req, res) {
+  getByIdAndPopulate = CatchAsyncError(async  (req, res)=> {
     const id = req.params.id;
     const populate = req.query.populate;
     if (!id) {
@@ -111,7 +110,7 @@ class BaseController {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   });
 
-  getByQueryAndPopulate = CatchAsyncError(async function (req, res) {
+  getByQueryAndPopulate = CatchAsyncError(async  (req, res)=> {
     const query = req.query;
     const populate = req.query.populate;
     if (!query) {

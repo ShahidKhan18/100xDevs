@@ -10,7 +10,7 @@ class BaseService {
     return newData;
   };
 
-  getAll = async function (query) {
+  getAll = async function (query={}) {
     const data = await this.model.find(query);
     return data;
   };

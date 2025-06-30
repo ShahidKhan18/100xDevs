@@ -6,7 +6,6 @@ const { StatusCodes } = require("http-status-codes");
 
 class UserController extends BaseController {
     constructor() {
-
         super(UserService);
     }
 
@@ -37,7 +36,6 @@ class UserController extends BaseController {
         SuccessResponse.data = { accessToken };
         return res.status(StatusCodes.OK).json(SuccessResponse)
     })
-
 
 }
 
